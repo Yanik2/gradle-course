@@ -1,0 +1,40 @@
+import com.yandev.ReleaseTask
+
+plugins {
+    id 'java'
+    id 'custom-yandev'
+}
+
+group = 'org.example'
+version = 'unspecified'
+
+ext {
+    release = false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task makeRelease(type: ReleaseTask) {
+    input = project.release
+    releaseFile = new File("$rootDir/script.gradle")
+}
+
+//task makeRelease {
+//    inputs.property("release", project.release)
+//    outputs.file("$rootDir/script.gradle")
+//
+//    doLast {
+//        println "release in progress"
+//    }
+//}
